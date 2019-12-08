@@ -5,11 +5,6 @@
     remote_src: yes
     mode: 0755
     
-- name: Changing perm of "/opt/catalog" to "0755"
-  file: 
-    dest: /opt/catalogue
-    mode: 0755
-
 - name: copy supervisord script for catalogue
   template:
     src: catalogue.supervisor.conf.j2
