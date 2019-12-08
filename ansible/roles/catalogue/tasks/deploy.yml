@@ -1,20 +1,25 @@
-- name: deploy catalogue binary
-  get_url:
-    url: "{{ catalogue.bin }}"
-    xxx:
-    xxx:
-  notify: restart catalogue service
+- name: Deploy catalogue binary
+  unarchive:
+    src: "{{ catalogue.bin }}"
+    dest: /opt
+    remote_src: yes
+    mode: 0755
+    
+- name: Changing perm of "/opt/catalog" to "0755"
+  file: 
+    dest: /opt/catalogue
+    mode: 0755
 
 - name: copy supervisord script for catalogue
   template:
-    src:
-    dest:
-    mode:
+    src: catalogue.supervisor.conf.j2
+    dest: /etc/supervisor/conf.d/catalogue.conf
+    mode: 0755
   notify: restart supervisor
 
 - meta: flush_handlers
 
-- name: start frontend service
+- name: start catalogue service
   supervisorctl:
-    xxx:
-    xxx: 
+    name: catalogue
+    state: started

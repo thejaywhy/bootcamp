@@ -4,5 +4,3 @@
     supervisorctl:
       name: frontend
       state: restarted
-
-  
